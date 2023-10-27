@@ -1,6 +1,8 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
+
 dotenv.config();
 const connectDB = require('./config/db.js');
 const {notFound,errorHandler} = require('./middleware/errorMiddleware.js');
@@ -37,6 +39,11 @@ const app = express();
 // Body parser middleware
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+
+/// cookie parser middleware
+app.use(cookieParser());
+
+
 
 app.get("/", (req, res) => {
   res.send("API runninng....");
