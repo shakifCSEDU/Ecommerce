@@ -5,10 +5,7 @@ dotenv.config();
 const connectDB = require('./config/db.js');
 const {notFound,errorHandler} = require('./middleware/errorMiddleware.js');
 const productRoute = require('./routes/productRoute.js');
-
-
-
-
+const userRoute = require('./routes/userRoute.js');
 
 const users = [
   {
@@ -37,11 +34,18 @@ connectDB(); // connect to MongoDB
 
 const app = express();
 
+// Body parser middleware
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+
 app.get("/", (req, res) => {
   res.send("API runninng....");
 });
 
 app.use('/api/products',productRoute);
+app.use('/api/users',userRoute);
+
+
 
 app.use(notFound);
 app.use(errorHandler);
